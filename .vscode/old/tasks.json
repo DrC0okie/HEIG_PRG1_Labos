@@ -1,0 +1,32 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "TVE C/C++: g++.exe build active file with c++20 standard",
+			"command": "C:\\Program Files\\mingw64\\bin\\g++.exe",
+			"args": [
+				"-std=c++20",
+				"-Wall",
+				"-Wextra",
+				"-Wconversion", 
+				"-Wsign-conversion", 
+				"-Wvla", 
+				"-pedantic",
+				"${file}",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+			],
+			"options": {
+				"cwd": "C:\\Program Files\\mingw64\\bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler : \"C:\\Program Files\\mingw64\\bin\\g++.exe\""
+		}
+	]
+}

@@ -1,0 +1,62 @@
+sudo nano /etc/network/interfaces
+sudo nano /etc/resolv.conf
+sudo nano /usr/share/dns/root.hints
+sudo nano /etc/bind/named.conf.options
+sudo nano /etc/bind/named.conf.local
+sudo nano /etc/bind/db.heig
+
+sudo systemctl restart bind9
+sudo systemctl status bind9
+sudo rndc flush
+
+--------------------------standard nslookup------------------------------
+labo@debian10:~$ nslookup www.a.com
+Server:         193.134.2.200
+Address:        193.134.2.200#53
+
+Non-authoritative answer:
+Name:   www.a.com
+Address: 6.0.0.123
+
+----------------------------Debug nslookup---------------------------------
+labo@debian10:~$ nslookup -debug www.a.com
+Server:         193.134.2.200
+Address:        193.134.2.200#53
+
+------------
+    QUESTIONS:
+        www.a.com, type = A, class = IN
+    ANSWERS:
+    ->  www.a.com
+        internet address = 6.0.0.123
+        ttl = 604564
+    AUTHORITY RECORDS:
+    ->  a.com
+        nameserver = ns.a.com.
+        ttl = 603106
+    ADDITIONAL RECORDS:
+    ->  ns.a.com
+        internet address = 6.0.0.200
+        ttl = 603106
+------------
+Non-authoritative answer:
+Name:   www.a.com
+Address: 6.0.0.123
+------------
+    QUESTIONS:
+        www.a.com, type = AAAA, class = IN
+    ANSWERS:
+    AUTHORITY RECORDS:
+    ->  a.com
+        origin = ns.a.com
+        mail addr = juergen.heig-vd.ch
+        serial = 1
+        refresh = 604800
+        retry = 86400
+        expire = 2419200
+        minimum = 604800
+        ttl = 10564
+    ADDITIONAL RECORDS:
+------------
+
+--------------------------
