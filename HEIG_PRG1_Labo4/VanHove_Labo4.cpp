@@ -5,97 +5,70 @@
 //[Compiler][options]:  [g++][-Wall -Wextra -Wconversion -Wsign-conversion -Wvla -pedantic -std=c++20]
 
 #include <iostream>
-#include <numeric>
+#include <limits>
 #include <string>
 
 using namespace std;
-
-const string SEPARATOR = " .. "; //Separator between min and max values
+using nl_uChar = numeric_limits<unsigned char>;
+using nl_char = numeric_limits<char>;
+using nl_uShort = numeric_limits<unsigned short>;
+using nl_short = numeric_limits<short>;
+using nl_uInt = numeric_limits<unsigned>;
+using nl_int = numeric_limits<int>;
+using nl_uLong = numeric_limits<unsigned long>;
+using nl_long = numeric_limits<long>;
+using nl_uLlong = numeric_limits<unsigned long long>;
+using nl_llong = numeric_limits<long long>;
+using nl_float = numeric_limits<float>;
+using nl_double = numeric_limits<double>;
+using nl_lDouble = numeric_limits<long double>;
+const string SEPARATOR = " .. ";
 
 //Output every datatype size in bits and min .. max values with numeric_limits class
 int main()
 {
-    
-    cout << "Unsigned char "
-         << " (" << std::numeric_limits<unsigned char>::digits << " bits) "
-         << (int)std::numeric_limits<unsigned char>::min()
-         << SEPARATOR
-         << (int)std::numeric_limits<unsigned char>::max() << endl;
+    cout << "unsigned char " << " (" << nl_uChar::digits << " bits) "
+         << (int)nl_uChar::min() << SEPARATOR << (int)nl_uChar::max() << endl;
 
-    cout << "Char "
-         << " (" << std::numeric_limits<char>::digits + 1 << " bits) "
-         << (int)std::numeric_limits<char>::min()
-         << SEPARATOR
-         << (int)std::numeric_limits<char>::max() << endl;
+    cout << "char " << " (" << nl_char::digits + 1 << " bits) "
+         << (int)nl_char::min() << SEPARATOR << (int)nl_char::max() << endl;
 
-    cout << "Unsigned short "
-         << " (" << numeric_limits<unsigned short>::digits << " bits) "
-         << numeric_limits<unsigned short>::min()
-         << SEPARATOR
-         << numeric_limits<unsigned short>::max() << endl;
+    cout << "unsigned short " << " (" << nl_uShort::digits << " bits) "
+         << nl_uShort::min() << SEPARATOR << nl_uShort::max() << endl;
 
-    cout << "Short "
-         << " (" << numeric_limits<short>::digits + 1 << " bits) "
-         << std::numeric_limits<short>::min()
-         << SEPARATOR
-         << std::numeric_limits<short>::max() << endl;
+    cout << "short " << " (" << nl_short::digits + 1 << " bits) "
+         << nl_short::min() << SEPARATOR << nl_short::max() << endl;
 
-    cout << "Unsigned int "
-         << " (" << numeric_limits<unsigned int>::digits << " bits) "
-         << std::numeric_limits<unsigned int>::min()
-         << SEPARATOR
-         << std::numeric_limits<unsigned int>::max() << endl;
+    cout << "unsigned int " << " (" << nl_uInt::digits << " bits) "
+         << nl_uInt::min() << SEPARATOR << nl_uInt::max() << endl;
 
-    cout << "Int "
-         << " (" << numeric_limits<int>::digits + 1 << " bits) "
-         << std::numeric_limits<int>::min()
-         << SEPARATOR
-         << std::numeric_limits<int>::max() << endl;
+    cout << "int " << " (" << nl_int::digits + 1 << " bits) "
+         << nl_int::min() << SEPARATOR << nl_int::max() << endl;
 
-    cout << "Unsigned long "
-         << " (" << numeric_limits<unsigned long>::digits << " bits) "
-         << std::numeric_limits<unsigned long>::min()
-         << SEPARATOR
-         << std::numeric_limits<unsigned long>::max() << endl;
+    cout << "unsigned long " << " (" << nl_uLong::digits << " bits) "
+         << nl_uLong::min() << SEPARATOR << nl_uLong::max() << endl;
 
-    cout << "Long "
-         << " (" << numeric_limits<long>::digits + 1 << " bits) "
-         << std::numeric_limits<long>::min()
-         << SEPARATOR
-         << std::numeric_limits<long>::max() << endl;
+    cout << "long "  << " (" << nl_long::digits + 1 << " bits) "
+         << nl_long::min() << SEPARATOR << nl_long::max() << endl;
 
-    cout << "Unsigned long long "
-         << " (" << numeric_limits<unsigned long long>::digits << " bits) "
-         << std::numeric_limits<unsigned long long>::min()
-         << SEPARATOR
-         << std::numeric_limits<unsigned long long>::max() << endl;
+    cout << "unsigned long long " << " (" << nl_uLlong::digits << " bits) "
+         << nl_uLlong::min() << SEPARATOR << nl_uLlong::max() << endl;
 
-    cout << "Long long "
-         << " (" << numeric_limits<long long>::digits + 1 << " bits) "
-         << std::numeric_limits<long long>::min()
-         << SEPARATOR
-         << std::numeric_limits<long long>::max() << endl;
+    cout << "long long " << " (" << nl_llong::digits + 1 << " bits) "
+         << nl_llong::min() << SEPARATOR << nl_llong::max() << endl;
 
-    cout << "Float "
-         << " (" << numeric_limits<float>::digits << " bits) "
-         << std::numeric_limits<float>::min()
-         << SEPARATOR
-         << std::numeric_limits<float>::max() << endl;
+	// numeric_limits<float>::bits returns 24, but it is only the mantissa size
+	// To get the actual size in bits, we have to use sizeof
+    cout << "float " << " (" << sizeof(float) * CHAR_BIT << " bits) "
+         << nl_float::min() << SEPARATOR << nl_float::max() << endl;
 
-    cout << "Double "
-         << " (" << numeric_limits<double>::digits << " bits) "
-         << std::numeric_limits<double>::min()
-         << SEPARATOR
-         << std::numeric_limits<double>::max() << endl;
+	// Mantissa + exp + sign bit
+    cout << "double " << " (" << sizeof(double) * CHAR_BIT << " bits) "
+         << nl_double::min() << SEPARATOR << nl_double::max() << endl;
 
-    cout << "Long double "
-         << " (" << numeric_limits<long double>::digits << " bits) "
-         << std::numeric_limits<long double>::min()
-         << SEPARATOR
-         << std::numeric_limits<long double>::max() << endl;
-
-    cout << "Hit enter to exit..." << endl;
-    getchar();
+	// Mantissa + exp + sign bit
+    cout << "long double " << " (" << sizeof(long double) * CHAR_BIT << " bits) "
+         << nl_lDouble::min() << SEPARATOR << nl_lDouble::max() << endl;
 
     return EXIT_SUCCESS;
 }

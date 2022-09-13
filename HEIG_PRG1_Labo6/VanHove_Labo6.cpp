@@ -4,41 +4,47 @@
 //Description:	    Program that calculates the duration between 2 hours
 //Input(s)          Dep. Hour [HH], Dep. minutes[MM], Arrival Hour [HH], Arrival minutes [MM]
 //Output(s)         Duration [HH:MM]
-//Note(s)           -Wsign-conversion will raise. The implicit casts is intended
+//Note(s)           -Wsign-conversion will raise. The implicit casts are intended
 //[Compiler][opt]   [g++][-Wall -Wextra -Wconversion -Wsign-conversion -Wvla -pedantic -std=c++20]
 
-#include <cstdlib> //Ensure compatibility for compilers that use standard < c++11
 #include <iostream>
 #include <limits>
-
-// used to empty the cin buffer before asking a new entry
-#define EMPTY_BUFFER cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 const int SECONDS_IN_HOUR = 60, NB_HOUR_MAX = 24;
 const double SECONDS_IN_HOUR_FP = 60.0;
 
 using namespace std;
 
+void emptyBuffer(){
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 int main()
 {
     // User messages for the input
-    int startHour = 0, startMinute = 0, arrivalHour = 0, arrivalMinute = 0;
+    int startHour, startMinute, arrivalHour, arrivalMinute;
     cout << "Enter the departure hour: ";
     cin >> startHour;
+	emptyBuffer();
     cout << "Enter the departure minute: ";
     cin >> startMinute;
+	emptyBuffer();
     cout << "Enter the arrival hour: ";
     cin >> arrivalHour;
+	emptyBuffer();
     cout << "Enter the arrival minute: ";
     cin >> arrivalMinute;
+	emptyBuffer();
 
     // Get the total duration in seconds
-    int totalDuration = (arrivalHour - startHour) * SECONDS_IN_HOUR + (arrivalMinute - startMinute);
+	int deltaHour = arrivalHour - startHour;
+	int deltaMin = arrivalMinute - startMinute;
+    int totalDuration = deltaHour * SECONDS_IN_HOUR + deltaMin;
 
     // Get the hours from the total duration.
     // SECONDS_IN_HOUR_FP (double) is used in case of negative value (avoid the trunc before the addition)
-    // This implicit cast will raise -Wsign-conversion message.
-    int durationHour = (totalDuration / SECONDS_IN_HOUR_FP) + NB_HOUR_MAX;
+    int durationHour = int((totalDuration / SECONDS_IN_HOUR_FP) + NB_HOUR_MAX);
     durationHour %= NB_HOUR_MAX;
 
     // Get the minutes from the total duration
@@ -46,9 +52,5 @@ int main()
 
     // Output the result for the user
     cout << "The trip lasted " << durationHour << ":" << durationMinutes << endl;
-
-    cout << "Hit enter to quit...";
-    EMPTY_BUFFER
-    getchar();
     return EXIT_SUCCESS;
 }

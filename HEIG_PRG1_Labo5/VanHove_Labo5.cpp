@@ -7,20 +7,22 @@
 
 #include <cstdlib> //Ensure compatibility for compilers that use standard < c++11
 #include <iostream>
-#include <limits>
-
-// used to empty the cin buffer before asking a new entry
-#define EMPTY_BUFFER cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 using namespace std;
 
 const double HOUR_MAX = 12.0, ANGLE_MAX = 360.0, OFFSET_TIME = 3.0, NB_MINUTES_IN_HOUR = 60.0;
+
+void emptyBuffer(){
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 
 int main()
 {
     int angle = 0;
     cout << "Enter an angle between 0 - 360°" << endl;
     cin >> angle;
+    emptyBuffer();
 
     //Get the decimal hour from the given angle
     //360 is used in negative because the angles rotate CCW
@@ -46,10 +48,6 @@ int main()
 
     //Display th results
     cout << angle << "° represents " << roundHour << "h " << minutes << endl;
-
-    cout << "Hit enter to quit...";
-    //EMPTY_BUFFER
-    getchar();
 
     return EXIT_SUCCESS;
 }

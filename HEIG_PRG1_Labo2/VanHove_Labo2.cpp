@@ -5,34 +5,31 @@
 
 #include <iostream>
 #include <string>
-#include <cstdio>		// Used to pause the console with getchar()
 
 using namespace std;
 
 const int CURRENTYEAR = 2021;
 
-int GetBirthYear(int age, int currentYear)
+int getBirthYear(int age, int currentYear)
 {
 	return currentYear - age;
 }
 
-void pause()
-{
-	cout << "Press ENTER to exit.";
-	getchar();
-	getchar();
-}
-
 int main()
 {
-	string name = "";
-	int age = 0;
+	string name;
+	int age;
+	
 	cout << "Enter yout name" << endl;
-	getline(cin, name); // getline() works only with string type and uses \n as default delimiter
+	 // getline() works only with string type and uses \n as default delimiter
+	getline(cin, name);
+	
 	cout << "Enter yout age" << endl;
-	cin >> age; 		// cin >> works with any types and uses any whitespace, \n or tabs as a delimiter
+	// cin >> works with any types and uses any whitespace, \n or tabs as a delimiter
+	cin >> age; 		
+	
 	cout << "Hello " << name << ", ";
-	cout << "your age is " << age << " and you were born in " << GetBirthYear(age, CURRENTYEAR) << endl;
-	pause();
+	cout << "your age is " << age << " and you were born in " << getBirthYear(age, CURRENTYEAR) << endl;
+	
 	return EXIT_SUCCESS;
 }
